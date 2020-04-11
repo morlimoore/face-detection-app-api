@@ -20,7 +20,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/', (req, res) => { res.send(knex.users) })
+app.get('/', (req, res) => { res.send('It is working!') })
 
 app.post('/signin', (req, res) => { signIn.handleSignIn(req, res, knex, bcrypt) })
 
