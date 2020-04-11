@@ -20,6 +20,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get('/', (req, res) => { res.send(knex.users) })
+
 app.post('/signin', (req, res) => { signIn.handleSignIn(req, res, knex, bcrypt) })
 
 app.post('/register', (req, res) => { register.handleRegister(req, res, knex, bcrypt) })
