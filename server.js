@@ -6,7 +6,9 @@ const register = require('./controllers/register')
 const signIn = require('./controllers/signIn')
 const profileId = require('./controllers/profileId')
 const image = require('./controllers/image')
-const knex = require('knex')({
+const knex = require('knex');
+
+const db = knex({
     client: 'pg',
     connection: {
       connectionString: process.env.DATABASE_URL,
@@ -20,13 +22,13 @@ app.use(cors());
 
 app.get('/', (req, res) => { res.send('It is working!') })
 
-app.post('/signin', (req, res) => { signIn.handleSignIn(req, res, knex, bcrypt) })
+app.post('/signin', (req, res) => { signIn.handleSignIn(req, res, db, bcrypt) })
 
-app.post('/register', (req, res) => { register.handleRegister(req, res, knex, bcrypt) })
+app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
     
-app.get('/profile/:id', (req, res) => { profileId.handleProfileId(req, res, knex) })
+app.get('/profile/:id', (req, res) => { profileId.handleProfileId(req, res, db) })
 
-app.put('/image', (req, res) => { image.handleImage(req, res, knex) })
+app.put('/image', (req, res) => { image.handleImage(req, res, db) })
 
 app.post('/imageUrl', (req, res) => { image.handleImageApiCall(req, res) })
 
