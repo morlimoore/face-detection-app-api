@@ -1,10 +1,10 @@
-const handleRegister = (req, res, db, bcrypt) => {
+const handleRegister = (req, res, knex, bcrypt) => {
     const { name, password, email } = req.body;
     if (!name || !password || !email) {
         return res.status(400).json('Invalid credentials')
     }
     const hash = bcrypt.hashSync(password);
-    db.transaction(trx => {
+    knex.transaction(trx => {
         trx.insert({
             hash: hash,
             email: email
